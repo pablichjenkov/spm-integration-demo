@@ -1,17 +1,28 @@
-*.iml
+### General
 .gradle
-**/build/
-xcuserdata
-!src/**/build/
 local.properties
+build/
+**/build
+**/*.db
+
+### IntelliJ IDEA ###
 .idea
+*.iws
+*.iml
+*.ipr
+*.hprof
+out/
+.fleet/
+.kotlin
+kotlin-js-store/
+
+### iOS Xcode generated ###
+iOSDemoApp/iOSDemoApp.xcodeproj/*
+!iOSDemoApp/iOSDemoApp.xcodeproj/project.pbxproj
+
+### Mac OS ###
 .DS_Store
-captures
-.externalNativeBuild
-.cxx
-*.xcodeproj/*
-!*.xcodeproj/project.pbxproj
-!*.xcodeproj/xcshareddata/
-!*.xcodeproj/project.xcworkspace/
-!*.xcworkspace/contents.xcworkspacedata
-**/xcshareddata/WorkspaceSettings.xcsettings
+
+### Firebase ###
+composeApp/google-services.json
+iOSDemoApp/iOSDemoApp/GoogleService-Info.plist

@@ -1,13 +1,10 @@
-import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.plugin.mpp.apple.XCFramework
-
-// import org.jetbrains.kotlin.gradle.targets.js.dsl.ExperimentalWasmDsl
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -21,18 +18,17 @@ kotlin {
         }
         binaries.executable()
     }*/
-    
+
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "1.8"
+                jvmTarget = JavaVersion.VERSION_17.toString()
             }
         }
     }
-    
+
     jvm("desktop")
 
-    val xcf = XCFramework()
     listOf(
         iosX64(),
         iosArm64(),
@@ -40,30 +36,28 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             export(libs.component.toolkit)
-            export("io.github.pablichjenkov:macao-auth-firebase:0.6.0-dev")
-            baseName = "composeApp"
+            export(libs.macao.auth.firebase)
+            baseName = "ComposeApp"
             isStatic = true
-            xcf.add(this)
         }
     }
-    
+
     sourceSets {
         val desktopMain by getting
-        
+
         androidMain.dependencies {
             implementation(libs.compose.ui.tooling.preview)
-            implementation(libs.androidx.activity.compose)
+            implementation(libs.activity.compose)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
             implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
 
             api(libs.component.toolkit)
-            api("io.github.pablichjenkov:macao-auth-firebase:0.6.0-dev")
+            api(libs.macao.auth.firebase)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
@@ -73,7 +67,7 @@ kotlin {
 
 android {
     namespace = "com.macaosoftware.spmdemo"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = libs.versions.androidCompileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
     sourceSets["main"].res.srcDirs("src/androidMain/res")
@@ -81,8 +75,8 @@ android {
 
     defaultConfig {
         applicationId = "com.macaosoftware.spmdemo"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = libs.versions.androidMinSdk.get().toInt()
+        targetSdk = libs.versions.androidTargetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -97,8 +91,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     dependencies {
         debugImplementation(libs.compose.ui.tooling)

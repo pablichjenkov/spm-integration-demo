@@ -1,6 +1,6 @@
 import UIKit
 import SwiftUI
-import composeApp
+import ComposeApp
 //import FirebaseCore
 //import FirebaseAuth
 import FirebaseAuthKmp

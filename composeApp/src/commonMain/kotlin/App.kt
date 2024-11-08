@@ -16,6 +16,8 @@ import com.macaosoftware.plugin.account.AccountPlugin
 import com.macaosoftware.plugin.account.AccountPluginEmpty
 import org.jetbrains.compose.resources.ExperimentalResourceApi
 import org.jetbrains.compose.resources.painterResource
+import spm_integration_demo.composeapp.generated.resources.Res
+import spm_integration_demo.composeapp.generated.resources.compose_multiplatform
 
 @OptIn(ExperimentalResourceApi::class)
 @Composable
@@ -38,7 +40,7 @@ fun App() {
             }
             AnimatedVisibility(showContent) {
                 Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource("compose-multiplatform.xml"), null)
+                    Image(painterResource(Res.drawable.compose_multiplatform), null)
                     Text("Compose: $greeting")
                 }
             }

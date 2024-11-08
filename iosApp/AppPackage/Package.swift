@@ -14,17 +14,17 @@ let package = Package(
     dependencies: [
         .package(
             url: "https://github.com/firebase/firebase-ios-sdk.git", from: "10.19.0"),
-        .package(url: "https://github.com/pablichjenkov/firebase-kmp.git", branch: "composeApp"),
+        .package(url: "https://github.com/pablichjenkov/firebase-kmp.git", branch: "main"),
     ],
     targets: [
-        .binaryTarget(
-            name: "composeApp",
-            path: "../../composeApp/build/XCFrameworks/debug/composeApp.xcframework"
-        ),
+//        .binaryTarget(
+//            name: "composeApp",
+//            path: "../../composeApp/build/XCFrameworks/debug/composeApp.xcframework"
+//        ),
         .target(
             name: "AppPackage",
             dependencies: [
-                .byName(name: "composeApp"),
+                //.byName(name: "composeApp"),
                 .product(
                     name: "FirebaseAuth",
                     package: "firebase-ios-sdk"
